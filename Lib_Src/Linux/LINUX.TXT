@@ -1,0 +1,9 @@
+For the moment the Linux & DOS version by Duncan Sands
+is not yet integrated in the project. Why ? It is due to
+small issues in the DOS version.
+I hope to do the integration one day, with a Linux machine at reach.
+
+Duncan's Linux version is available on the Web at
+   http://www.mysunrise.ch/users/gdm/e3d.htm
+
+G.
