@@ -1,0 +1,92 @@
+ \=======================\
+ |  ENGINE_3D : History  |
+ \=======================\
+
+[13-Mar-2009]
+018: - batches adapted to GCC 4.3.2 (Ada integrated into GCC)
+     - uses Zip-Ada v.31
+
+[31-Mar-2005]
+017: - again a cleanup
+
+[14-Sep-2003]
+016: - debugged using GNAT/DOS 3.14 and -gnato (full overflow checks)
+     - new UnZip-Ada
+
+[1-Jun-2002]
+015: - restructured scanline algorithms in SVGA.Effects with generics
+     - improvements in Game_colors
+
+[13-Jan-2002]
+014: - reaction against objects (Engine_3D.Physics)
+     - bump mapping for textures
+     - support for animated textures
+     - Demo_3D_01 improved (sounds, a bit of interaction)
+
+[12-Aug-2001]
+013: - transparency colour constant (-> hardcoded)
+     - texture mapping fixed-point changed from x.8 to x.10
+     - cleanup
+
+[20-Jul-2001]
+012: - geometric fixed-point changed from 23.9 to 18.14 : much more
+         precise rotations
+     - Engine_3D.Initialisations
+     - invariants of faces are pre-calculated at init, more careful
+         start-time checkings
+     - typing for portals simplified in Object_3D
+     - hidden face detection just after projection instead of at drawing;
+         portals work fully without danger of infinite recursion (Demo 01)
+     - shaky lighting solved (was an horrible little bug in
+         the cross product!)
+     - simple surface reflexion models added (matt to metallic effects)
+
+[ 2-Apr-2001 / 7-Nov-2000 / 15-Oct-2000]
+011: - minor changes in type names: more '_' to separate words and
+         final 'T' suppressed
+     - added sub-objects list (e.g. things inside a room)
+     - minor improvements in pseudo-mini-game
+     - preparing subpixel accuracy
+
+[ 3-Sep-2000]
+010: - routines transferred to Engine_3D.Math, Engine_3D.Portals
+     - minor palette optimisation in Game_colors
+
+[ 6-Apr-2000]
+009: * first portal demo released (some lighting bugs you will see...)
+     * again faster (up to 30%) due to usage of -funroll-loops option
+     * usage of Flashsort sorting (K.-D. Neubert, Ada version: J. Delcourt)
+
+008: algorithmic cleanup in scanlines; other bugfixes
+     (effects: doesn't crash with standard checks on; 5% - 20% faster)
+
+007 bis: new space shuttle model (the Gnatraker...)
+
+007: Engine: positive orientation & outer normals for faces -
+             generalized polygons - object merging & morphing
+             with "+", "*" operators
+     Demo: synchronized speed (fine timer) - some new objects -
+           movements with keyboard
+
+006 bis: (007 will be for the Moonraker Edition...)
+     2 bugs removed, now all can run with full checks (slow!) when
+     built without suppress pragma/option - o.visible_face bug
+     removed (follows sorting...)
+
+006: Z clipping - much faster Gouraud (precalculate adjacencies) -
+     rotations with matrices - Camera can move and rotate -
+     resolution independant focal-related coordinates
+
+005: X/Y clipping - near_perspective corrected (line ends) -
+     faster sorting - object components directly accessed via renaming - 
+     texture rendering methods are now the following:
+
+  type texture_mapping_mode is (
+    affine_y_affine_x,    -- everything affine -> Nz ~= 1 (you face it)
+    persp_y_affine_x,     -- ends:persp, h_lines:affine -> Nx ~= 0 (floors,...)
+    persp_x_affine_y,     -- ends:persp, v_lines:affine -> Ny ~= 0 (walls,...)
+    near_perspective,     -- everything persp (every n pixels)
+    auto );               -- auto select according to N
+
+004: 1600x1200 mode - intensities & shaded textures - faster rendering
+     multiple lights (parallel, radial) - lights can be set with mouse in demo

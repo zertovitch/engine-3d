@@ -1,0 +1,9 @@
+ \====================\
+ |  ENGINE_3D: Traps  |
+ \====================\
+
+what:		remind to...:			if not:
+----------------------------------------------------------------------------
+
+sub-object	place it inside the object	looks strange!
+

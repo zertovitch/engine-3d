@@ -1,0 +1,34 @@
+ \=====================\
+ |  ENGINE_3D : F.A.Q. |
+ \=====================\
+
+Q1) When I build the sources, I obtain strange messages at link phase and
+    link fails.
+A1) You need a GNAT for DOS distribution. The library contains
+    low-level access to hardware (screen, keyboard, mouse,...)
+    in ways that are DOS-specific
+    Look at E3D_Info.txt for how to find the right DOS compiler
+
+Q2) Where is the documentation ?
+A2) Nowhere, alas. I already have so little time to develop!
+
+Q3) > Hi Gautier, did you look carefully at the rotating cube with
+    > the chess board pattern.  Sometimes it looks very bad - and I'm
+    > sure it's not "perspectively correct" (is this something like
+    > "politically correct"?!).
+
+A3) There are 5 scenes with that cube. The first is *NOT*
+    "perspectively correct" at all. If you watch it too long, your
+    stomach has suddenly strange convulsions.
+    The other 4 are (or almost). The ones with vertical
+    and horizontal movement are correct despite the fact
+    the texture coordinates are linarily interpolated on
+    the scanlines. Why ? Because the depth doesn't change
+    along the lines :-). There seems to be no difference
+    between scene 4 and 5. There is one: the engine chooses
+    automatically one of the 4 methods provided it looks
+    correct. Of course the affine ones are much faster.
+    In old engines, from Wolfenstein 3D to Duke Nukem 3D,
+    this choice was hardcoded, since vertical things were
+    always displayed vertical, e.g. .
+    Engine_3D is a full-movement engine: one has to be a bit smarter.

@@ -1,0 +1,22 @@
+ \=========================\
+ |  ENGINE_3D : To do list |
+ \=========================\
+
+- Semi-transparent textures, using SVGA.Effects.Blending (cf dos_paqs.zip)
+
+- Migration towards a more portable model based
+  on Duncan Sands' DOS & Linux version + OpenGL versions
+
+- Amorphous view frustum instead of rectangle
+
+- Try pragma Pack and Pure
+
+- Binary Space Partition trees - if/where we really need them...
+
+- Reflection mapping, better environment mapping
+
+- Program that tells all numerical limits in 3D and 2D coordinates
+
+=== application
+
+- A new game with interiors & space exteriors

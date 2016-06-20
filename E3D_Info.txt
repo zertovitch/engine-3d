@@ -1,0 +1,188 @@
+ \=============\
+ |  ENGINE_3D  |
+ \=============\
+
+Some unsorted infos. The Web addresses given below become obsolete
+as fast as you know. Search the topics if they are no more valid!
+
+- Latest changes and history are in E3D_hist.txt
+
+- The archive, eng3d*.zip, contains all sources, executable and data.
+
+- The archive has the following directory structure (attention:
+  with PKUNZIP the "-d" is required "pkunzip -d eng3d*.zip") :
+
+\---Engine3D
+    +---Demos                 -- Demo sources, exe, data
+    |   +---ACU_Debg          -- Ada compiled units (Debug)
+    |   \---ACU_Opti          -- Ada compiled units (Optimized - release)
+    +---Lib_Src               -- Sources of 3D engine
+    |   +---3DModels          -- Sources of 3D models (in Ada, VRML-like)
+    |   +---Misc              -- Other sources (needed for demo)
+    |   +---DOS               -- Sources for hardware - DOS
+    |   +---Linux             -- Sources for hardware - Linux
+    |   \---UzA_Src           -- Library for unzipping
+    \---VESA                  -- VESA utilities - DOS & emulations
+
+- The source code for engine is in Engine_3D package (engine3d.ads,
+  engine3d.adb files).
+  See type Object_3D in engine3d.ads for the current object structure.
+
+- The demo #00 consists in some rotating 3D objects.
+  The demo #01 shows the portal drawing features.
+  Ada procedures are the Demo_3D_* (demo3d*.adb files, exe:demos.exe).
+
+Here are the commands for Demo #00:
+
+  [Mouse]     Left button: Add / Move new light. Right button: reset lights
+  
+  [Keyboard]  SPACE     : next part
+              Gray +/-  : object rotation speed control
+              Left/Right: turn left/right
+              Up/Down   : forward/backward
+              S/D       : swing angle
+              A/Y       : turn up/down
+              X         : snapshot to snap_???.bmp
+
+  NB: the A-Z keys are automatically adapted to national keyboard settings.
+
+Here are the commands for Demo #01:
+
+  [Mouse] installed= TRUE
+    Left button    : go forward       Move Left/Right: turn -or- slide left/right
+    Right button   : `slide' mode     Move   Up/Down : go forward/backwards
+  
+  [Keyboard]
+    Esc       : exit                      Left/Right: turn -or- slide left/right
+    Alt       : `slide' mode                Up/Down : go forward/backwards
+    Shift     : `run' mode                PgUp/PgDn : turn up/down
+    S/D       : swing angle               A/Y       : slide up/down
+    X         : snapshot to snap_???.bmp
+
+  NB: the A-Z keys are automatically adapted to national keyboard settings.
+
+- The effects: Z_shading, Lambert, Gouraud, (environment-mapped) Phong for
+  lighting, on colours or textures.
+
+- The DOS version runs on DOS (what a surprise) and plenty
+  of Virtual DOS Machines. I have tested:
+  
+    MS-DOS
+    DR-DOS (ex-Digital Resarch DOS, ex-Novell DOS, ex-Caldera DOS
+            now Lineo DR-DOS http://www.drdos.com)
+    DR-DOS under its multitasker (virtualized)
+    Windows 95,98 - should work for ME
+    Windows NT4 - should work for 2000 and XP
+
+  Note that for NT, the DOS machine is good but (a) bugged and (b) has only
+  indirect hardware access - fortunately for the system's stability!
+  Cures:
+
+    (a) I have noticed that installing the Long File Name API for NT's DOS
+        stabilizes miraculously NTVDM, although the 3D stuff here only uses
+        short names. A version of NTLFN is there
+        http://clio.rice.edu/djgpp/ntlfn08b.zip
+  
+    (b) In order to obtain sounds (demo 01) you'll need a DOS sound card
+        emulator. VDMSound is there for that!
+        See: http://www.ece.mcgill.ca/~vromas/vdmsound/
+
+  You need a 386+ PC _and_ a standard VESA (SVGA) graphics card.
+  The VESA subdir in archive has the VLIST utility to display the
+  current VESA BIOS or emulation status.
+  On Windows, you may have to go to full-screen mode manually (Alt-Enter).
+
+  There is no 3D hardware involved.
+
+  It will crawl without VESA 2.0+, i.e. 32-bit linear frame buffer.
+  Some old cards need VESA emulation - see graphics card
+  manufacturer Web site. Some emulations upgrade VESA 1.x
+  to VESA 2 - e.g. S3VBE20. An universal driver is UniVBE (SciTechSoft)
+  Some addresses:
+    ftp://ftp.scitechsoft.com/sdd/sdd651.exe (includes original UNIVBE)
+    http://www.s3.com/bbs/0main/topindex.htm (S3VBE20 in "misc and utilites")
+  It seems that all new cards have VESA 2.0+ de facto.
+
+- To compile or recompile the DOS version, you need the GNAT for DOS compiler.
+  You find it in the DJGPP distribution, at
+  http://www.delorie.com/pub/djgpp/current/ or mirrors (search "DJGPP").
+  you need to download and unzip the following archives (version numbers may
+  differ, but those listed below are fine together):
+
+    v2gnu/ada432b.zip
+    v2gnu/gcc432b.zip
+    v2gnu/bnu219b.zip
+    v2/djdev203.zip
+
+  add the bin directory to the PATH and set the DJGPP environment variable
+  - see gdos.cmd as an example. You may need to shorten the directory name
+  lib\gcc\djgpp\4.32\ADAINCLUDE by removing the final "DE".
+  Once this installation is done, you can use the following batch files:
+
+     makefast  :  (re)builds the demos, in optimized mode
+     makemini  :  same, but minimizes .exe size
+     make_xx   :  (re)builds an unit (given as parameter)
+     makedebg  :  (re)builds the demos, in debug mode
+
+  Ada being a modular fully language, any paramaterless procedure
+  can be choosen as "main" and have an executable made from it.
+ 
+- The pack is rather limited and experimental, you are warned!
+  E.g. the pseudo-Phong doesn't use the lighting vectors;
+  the Z-sorting (instead of Z-buffering) produces bizarre effects
+  on certain objects with polygons having big size differences.
+
+- Code optimization:
+  =================
+  I'm trying to make the code more readable as well as more efficient.
+  It is not a contradiction, especially with Ada where you can go
+  relatively far on the same road with efficiency, readability and portability
+  
+  
+  Many algorithmic and geometric "astuces" allow to select the
+  fastest drawing schemes and to try to draw almost exactly as many
+  pixels as the screen contains.
+  
+  The optimizer in GNAT does a great job; you can tune the code by
+  reading
+   * the assembler output (gcc -S -O2 -gnatpn -funroll-loops), or
+   * the frames-per-seconds (demo3d00.fps).
+
+   Tuning tips:
+   ------------
+   * Inline pragmas - not for everything, but for selected functions/procs.!
+     To many inlines make GNAT produce a too large machine code; this
+     slows down your program due to poorer cacheing in CPU.
+   * "declare" blocks for local variables unused in loops
+   * Generally, _help_ the optimizer attributing the (too) few Intel
+     registers to important local variables. Don't worry: the optimizer
+     "sees" what variables are important like an expert assembler programmer!
+   * Make a abundant usage of Ada's strong typing, especially scalar
+     subtypes, instead of integers with vague codes.
+     Reasons:
+     - GNAT make use of the precise type information at compile-time to
+       optimize better (boundaries, "case" cases, arrays).
+     - You will gain more readable sources and better "feel" the program,
+       including what could go faster.
+     - In debug phases you will catch a lot of errors you'd never imagine
+       they could occur. Example, GNAT warned at *compile-time* a clash
+       with the intensity range, that would provoke an array overrun
+       somewhere else.
+   * Pre-calculate all algorithmics invariants but take into account
+     the possible growth of data (bad cacheing) and the time to access data:
+     it might be bigger than the time to compute them!
+
+- Questions, comments, contribs: http://sf.net/users/gdemont/
+
+- Web resources for Engine_3D:
+   * DOS system related sources:
+       http://users.ncrvnet.nl/gmvdijk/other_os.html#CONIO
+
+   * GNAT Web site: http://www.adacore.com/
+   * GNAT public version to download: http://libre.adacore.com/
+   * GNAT for DOS compiler (look above to know what to install):
+       http://www.delorie.com/pub/djgpp/current/
+       
+   * AdaGIDE: a great Windows IDE for GNAT. I use it more and more for
+     programming, even GNAT/DOS.
+       http://adagide.martincarlisle.com/

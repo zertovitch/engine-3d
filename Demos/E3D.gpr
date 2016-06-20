@@ -1,0 +1,55 @@
+project E3D is
+
+   type Build_Mode_Type is ("Debug", "Fast", "Small");
+   Build_Mode : Build_Mode_Type := external ("Build_Mode", "Debug");
+   for Source_Dirs use (".", "..\lib_src\/**");
+   for Exec_Dir use ".";
+   for Main use ("Demos.adb");
+
+   case Build_Mode is
+      when "Small" => for Object_Dir use "acu_opti";
+      when "Fast" =>  for Object_Dir use "acu_opti";
+      when "Debug" => for Object_Dir use "acu_debg";
+   end case;
+
+   package Binder is
+      case Build_Mode is
+         when "Small" =>
+         when "Fast" =>
+         when "Debug" =>
+            for Default_Switches ("ada") use ("-E");
+      end case;
+   end Binder;
+
+   package Compiler is
+      case Build_Mode is
+         when "Small" =>
+            for Default_Switches ("ada") use ("-Os", "-s", "-gnatp", "-march=i386", "-gnatk8");
+         when "Fast" =>
+            for Default_Switches ("ada") use ("-O2", "-gnatn", "-funroll-loops", "-fpeel-loops", "-ftracer", "-funswitch-loops", "-gnatp", "-fomit-frame-pointer", "-gnatk8");
+         when "Debug" =>
+            for Default_Switches ("ada") use ("-gnato", "-fstack-check", "-g", "-gnatwkmpz", "-gnatVa", "-gnatecdebug.pra", "-gnatyhiknp", "-gnatk8");
+      end case;
+   end Compiler;
+
+   package Linker is
+      case Build_Mode is
+         when "Small" =>
+            for Default_Switches ("ada") use ("-s", "-Wl,--gc-sections");
+         when "Fast" =>
+            for Default_Switches ("ada") use ("-s", "-Wl,--gc-sections");
+         when "Debug" =>
+            for Default_Switches ("ada") use ("-g");
+      end case;
+   end Linker;
+
+   package Builder is
+      for Default_Switches ("ada") use ("-j2");
+   end Builder;
+
+   package Ide is
+      for Default_Switches ("adacontrol") use ("-F", "gnat_short");
+   end Ide;
+
+end E3D;
+
