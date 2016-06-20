@@ -1491,7 +1491,8 @@ package body Engine_3D is
 
       -- (2) We draw the face, if possible
       if o.can_draw_face(sorted_i) = behind_and_face
-          and then non_empty_intersection then
+          and then non_empty_intersection
+      then
           -- ^- 25-Jul-2001 "frustum culling"
        case o.faces(sorted_i).draw_mode is
          when invisible => null; -- claro !

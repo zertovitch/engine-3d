@@ -81,7 +81,8 @@ package body Engine_3D.Initialisations is
           declare the_face: Face renames o.faces(fa);
           begin
            if the_face.P(1) = pt or else the_face.P(2) = pt or else
-              the_face.P(3) = pt or else the_face.P(4) = pt then
+              the_face.P(3) = pt or else the_face.P(4) = pt
+           then
              AntalHits:= AntalHits + 1;
              if AntalHits > Max_faces_per_vertex then
               raise_exception(too_many_adjacences'Identity,

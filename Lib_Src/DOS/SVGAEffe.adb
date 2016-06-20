@@ -108,7 +108,7 @@ package body SVGA.Effects is
     int:   Intensity;
     fix_int, Delta_int: sfix;
     Span, Cut: Integer;
-    Buffer_Data:  Data_Buffer_Access:= Buffer.Data;
+    Buffer_Data: constant Data_Buffer_Access:= Buffer.Data;
     Buffer_Width: constant Integer:= Buffer.Width;
 
     -- 13-May-2002:
@@ -277,7 +277,7 @@ package body SVGA.Effects is
     Color: Color_type;
     int: Intensity;
     fix_int, Delta_int: sfix;
-    Buffer_Data:  Data_Buffer_Access:= Buffer.Data;
+    Buffer_Data: constant Data_Buffer_Access:= Buffer.Data;
 
     -- Every "granu_persp" pixels, we calculate correct Z, U=Z*UP, V=Z*VP
 
@@ -584,7 +584,8 @@ package body SVGA.Effects is
                         Destination : in out Texture_map) is
   begin
     if Source.width  /= Destination.width  or else
-       Source.height /= Destination.height then
+       Source.height /= Destination.height
+    then
       raise Out_of_range;
     end if;
     Destination.data.all:= Source.data.all;

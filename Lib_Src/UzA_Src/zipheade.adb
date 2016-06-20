@@ -296,7 +296,8 @@ package body Zip.Headers is
           Byte'Read(stream, end_buffer(j));
           -- 20-Jun-2001: useless to read more if 1st character is not 'P'
           if j=end_buffer'First and then
-             end_buffer(j)/=Character'Pos('P') then
+             end_buffer(j)/=Character'Pos('P')
+          then
             raise bad_end;
           end if;
         end loop;

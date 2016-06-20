@@ -581,7 +581,8 @@ package body SVGA is
          raise Screen_Buffer_Error;
       end if;
       if SB.Width = 0 or SB.Height = 0 or
-        SB.Width > X_Loc'Last + 1 or SB.Height > Y_Loc'Last + 1 then
+        SB.Width > X_Loc'Last + 1 or SB.Height > Y_Loc'Last + 1
+      then
          raise Out_Of_Range;
       end if;
       SB.Data := new Data_Buffer (0 .. Size - 1);
@@ -1078,7 +1079,8 @@ package body SVGA is
       GetModeInfoBlock (SVGA_Mode'Enum_Rep (New_Mode), Current_Mode);
       if Linear_Mode then
          if (Current_Mode.ModeAttributes and Linear_Mode_Present) = 0 or
-           Current_Mode.PhysBasePtr = 0 or Force_banked then
+           Current_Mode.PhysBasePtr = 0 or Force_banked
+         then
             Linear_Mode := False;
          end if;
       end if;
@@ -1110,11 +1112,13 @@ package body SVGA is
             raise Cannot_Alloc_Local_Desc;
          end if;
          if Dpmi_Set_Segment_Base_Address (Video_Selector,
-                                           DPMI_Info.Address) = -1 then
+                                           DPMI_Info.Address) = -1
+         then
             raise Cannot_Set_Base_Address;
          end if;
          if Dpmi_Set_Segment_Limit (Video_Selector,
-                                    DPMI_Info.Size or 16#fff#) = -1 then
+                                    DPMI_Info.Size or 16#fff#) = -1
+         then
             raise Cannot_Set_Segment_Limit;
          end if;
          Set_Selector (Unsigned_16 (Video_Selector));
@@ -2112,7 +2116,8 @@ package body SVGA is
          raise Screen_Buffer_Error;
       end if;
       if Buffer.Width /= X_Size and
-        Buffer.Height /= Y_Size then
+        Buffer.Height /= Y_Size
+      then
          raise Out_Of_Buffer_Range;
       end if;
       Size := Buffer.Data.all'Size / 8;
@@ -2235,7 +2240,8 @@ package body SVGA is
       end if;
 
       if Buffer.Width /= X_Size and
-        Buffer.Height /= Y_Size then
+        Buffer.Height /= Y_Size
+      then
          raise Out_Of_Buffer_Range;
       end if;
       Size := Buffer.Data.all'Size / 8;
@@ -2275,7 +2281,8 @@ package body SVGA is
          raise Screen_Buffer_Error;
       end if;
       if Source.Width /= Destination.Width or
-        Source.Height /= Destination.Height then
+        Source.Height /= Destination.Height
+      then
          raise Out_Of_Buffer_Range;
       end if;
       Destination.Data.all := Source.Data.all;

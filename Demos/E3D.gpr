@@ -24,20 +24,20 @@ project E3D is
    package Compiler is
       case Build_Mode is
          when "Small" =>
-            for Default_Switches ("ada") use ("-Os", "-s", "-gnatp", "-march=i386", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-Os", "-s", "-gnatp", "-march=i386", "-gnatk8");
          when "Fast" =>
-            for Default_Switches ("ada") use ("-O2", "-gnatn", "-funroll-loops", "-fpeel-loops", "-ftracer", "-funswitch-loops", "-gnatp", "-fomit-frame-pointer", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-O2", "-gnatn", "-funroll-loops", "-fpeel-loops", "-ftracer", "-funswitch-loops", "-gnatp", "-fomit-frame-pointer", "-gnatk8");
          when "Debug" =>
-            for Default_Switches ("ada") use ("-gnato", "-fstack-check", "-g", "-gnatwkmpz", "-gnatVa", "-gnatecdebug.pra", "-gnatyhiknp", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-gnato", "-fstack-check", "-g", "-gnatwkmpz", "-gnatVa", "-gnatecdebug.pra", "-gnatyhiknp", "-gnatk8");
       end case;
    end Compiler;
 
    package Linker is
       case Build_Mode is
          when "Small" =>
-            for Default_Switches ("ada") use ("-s", "-Wl,--gc-sections");
+            for Default_Switches ("ada") use ("-s");
          when "Fast" =>
-            for Default_Switches ("ada") use ("-s", "-Wl,--gc-sections");
+            for Default_Switches ("ada") use ("-s");
          when "Debug" =>
             for Default_Switches ("ada") use ("-g");
       end case;

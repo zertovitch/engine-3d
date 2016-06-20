@@ -57,7 +57,7 @@ package Engine_3D is
   -- Define a face --
   -------------------
 
-  type Index_array is array(natural range <>) of Natural;
+  type Index_array is array(Natural range <>) of Natural;
 
   type Reflexion_type is ( very_matt, matt, neutral, bright, very_bright );
   type Draw_modes is ( textured, colours, invisible, mirror );
@@ -129,11 +129,11 @@ package Engine_3D is
   type Fixed_ScrPoint_array is array(Natural range <>) of Fixed_ScrPoint;
   type Face_array is array(Natural range <>) of Face;
   type Face_invariants_array is array(Natural range <>) of Face_invariants;
-  type Center_array is array(Natural range <>) of integer;
-  type Bool_array is array(Natural range <>) of boolean;
+  type Center_array is array(Natural range <>) of Integer;
+  type Bool_array is array(Natural range <>) of Boolean;
 
   Max_faces_per_vertex: constant:= 32;
-  type adjacence_table is array(natural range <>, natural range <>) of natural;
+  type adjacence_table is array(Natural range <>, Natural range <>) of Natural;
 
   -- 2-Apr-2001: list of objects
   type Object_3D_list;
@@ -149,15 +149,15 @@ package Engine_3D is
 
   -- 15-Oct-2000: fields Points & Projected are fixed-point for subpixel accuracy
 
-  type Object_3D (Max_points, Max_faces: integer) is record
+  type Object_3D (Max_points, Max_faces: Integer) is record
 
     -- The following are data:
 
     Baseobj    : Point_array(1..Max_points);  -- unmoved, relative edges
     Faces      : Face_array(1..Max_faces);    -- faces
 
-    Num_of_points : integer:= Max_points;
-    Num_of_faces  : integer:= Max_faces;
+    Num_of_points : Integer:= Max_points;
+    Num_of_faces  : Integer:= Max_faces;
 
     Center        : RealPoint:= (0.0,0.0,0.0);  -- absolute centering
     Auto_rotation : FixedMatrix33:= FixedId33;  -- object orientation
@@ -197,7 +197,7 @@ package Engine_3D is
   points_overflow, faces_overflow: exception;
 
   -- arrays of pointers to objects
-  type a_p_Object_3D is array(integer range <>) of p_Object_3D;
+  type a_p_Object_3D is array(Integer range <>) of p_Object_3D;
 
   -------------------------
   -- Projection 3D -> 2D --
@@ -248,8 +248,8 @@ package Engine_3D is
                   surf_select   : in  surface_select;
                   map_mode      : in  texture_mapping_mode;
                   shading       : in  shading_mode;
-                  do_Z_shading  : in  boolean:= false;
-                  minZ, maxZ    : in  integer:= 0
+                  do_Z_shading  : in  Boolean:= False;
+                  minZ, maxZ    : in  Integer:= 0
                  );
 
   -- N.B.: Z-shading is added to others
@@ -268,13 +268,13 @@ package Engine_3D is
 
   -- Parallel lights (sun, distant sources,... )
   max_parallel_lights: constant:= 4;
-  parallel_lights: natural:= 0;
+  parallel_lights: Natural:= 0;
   parallel_light_vect:  array(1..max_parallel_lights) of Vector3;
   parallel_light_force: array(1..max_parallel_lights) of Real;
 
   -- Radial lights (bulb,... )
   max_radial_lights: constant:= 10;
-  radial_lights: natural:= 0;
+  radial_lights: Natural:= 0;
   radial_light_source: array(1..max_radial_lights) of RealPoint;
   radial_light_force:  array(1..max_radial_lights) of Real;
 

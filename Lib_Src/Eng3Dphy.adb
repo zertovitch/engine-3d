@@ -90,7 +90,8 @@ package body Engine_3D.Physics is
         u:= P1rf - (To_RealPoint(o.BaseObj(j1))+o.Center);
         dist:= u * n;
         if dist < radius and then -- includes negatives values!
-           Dans_prisme_epaissi(face) then
+           Dans_prisme_epaissi(face)
+        then
           if o.Faces(face).connecting /= null then
             null; -- on s'occupe des portails ailleurs,
                   -- dans l'ordre de traversee suivant la trajectoire

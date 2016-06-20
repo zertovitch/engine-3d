@@ -168,7 +168,7 @@ procedure Demo_3D_01 is
    iad: constant intensity:= intensity'First;
    ibd: constant intensity:= intensity'Last;
    ia: Intensity:= iad;
-   ib: Intensity:= ibd;
+   ib: constant Intensity:= ibd;
    ia_sol: constant intensity:= intensity'First;
    ib_sol: constant intensity:= intensity'Last;
    seg     : constant:= 4; -- pair!
@@ -281,7 +281,8 @@ procedure Demo_3D_01 is
 
        if tex_wall = t004p113 or
           tex_wall = Rouille4 or
-          tex_wall = Rouille3 then
+          tex_wall = Rouille3
+       then
          ia:= iad/2;
        end if; -- not too dark
 
@@ -748,7 +749,8 @@ procedure Demo_3D_01 is
       -- "Roll" multi-image animation:
 
       if laby(2).projection_refreshed or   -- !! decision a posteriori
-         laby(7).projection_refreshed then -- !! decision a posteriori
+         laby(7).projection_refreshed      -- !! decision a posteriori
+      then
         tex(VentilAni).all:=
           tex( Texture_id'Val( Texture_id'Pos(GarageV0) +
                                Integer( freq_venti * fine_time ) mod 4
@@ -850,7 +852,7 @@ procedure Demo_3D_01 is
     loop
       declare
         x,y: Real;
-        curr_room: Positive:= room_to_draw;
+        curr_room: constant Positive:= room_to_draw;
       begin
         -- The most minimalist BSP ever...
         x:= (Eye(1) / Real(Room_scale) + 5.0) / 11.0;

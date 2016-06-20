@@ -108,12 +108,14 @@ package body SVGA.Effects.Bump is
 
   begin
     if original.Width /= deformed.Width or
-      original.Height /= deformed.Height then
+      original.Height /= deformed.Height
+    then
        raise Out_Of_Buffer_Range;
     end if;
 
     if original.Width /= bump_map.Width or
-      original.Height /= bump_map.Height then
+      original.Height /= bump_map.Height
+    then
        raise Out_Of_Buffer_Range;
     end if;
 
@@ -130,12 +132,14 @@ package body SVGA.Effects.Bump is
 
   begin
     if original.Width /= deformed.Width or
-      original.Height /= deformed.Height then
+      original.Height /= deformed.Height
+    then
        raise Out_Of_Buffer_Range;
     end if;
 
     if original.Width /= bump_map.Width or
-      original.Height /= bump_map.Height then
+      original.Height /= bump_map.Height
+    then
        raise Out_Of_Buffer_Range;
     end if;
 
@@ -171,10 +175,11 @@ package body SVGA.Effects.Bump is
             yy:= yy mod ytot;
           end if;
           if xx>= 0 and then xx<= xtot-1 and then
-             yy>= 0 and then yy<= ytot-1 then
-          map.Data(xx + yy * xtot):=
-            map.Data(xx + yy * xtot) +
-              granu * depth * (r2 - n2) / r2 ;
+             yy>= 0 and then yy<= ytot-1
+          then
+            map.Data(xx + yy * xtot):=
+              map.Data(xx + yy * xtot) +
+                granu * depth * (r2 - n2) / r2 ;
           end if;
         end if;
       end loop;
@@ -191,11 +196,13 @@ package body SVGA.Effects.Bump is
                           u_xm1_ym1, u_x_ym1, u_xp1_ym1,
                           u_x_y_tm1                 : Integer )
                   return Integer;
-  procedure G_Evolve( map_k, map_kp1: in out Height_Buffer;
+  procedure G_Evolve( map_k         : in  Height_Buffer;
+                      map_kp1       : out Height_Buffer;
                       xtot,ytot     : Natural;
                       boundary      : Boundary_mode );
 
-  procedure G_Evolve( map_k, map_kp1: in out Height_Buffer;
+  procedure G_Evolve( map_k         : in  Height_Buffer;
+                      map_kp1       : out Height_Buffer;
                       xtot,ytot     : Natural;
                       boundary      : Boundary_mode )
   is
@@ -295,7 +302,8 @@ package body SVGA.Effects.Bump is
                     propagation   : Propagation_mode ) is
   begin
     if map_k.Width  /= map_kp1.Width or
-       map_k.Height /= map_kp1.Height then
+       map_k.Height /= map_kp1.Height
+    then
        raise Out_Of_Buffer_Range;
     end if;
     case propagation is
@@ -321,7 +329,8 @@ package body SVGA.Effects.Bump is
        raise Height_Map_Error;
     end if;
     if HM.Width = 0 or HM.Height = 0 or
-      HM.Width > X_Loc'Last + 1 or HM.Height > Y_Loc'Last + 1 then
+      HM.Width > X_Loc'Last + 1 or HM.Height > Y_Loc'Last + 1
+    then
        raise Out_Of_Range;
     end if;
     HM.Data := new Height_Buffer (0 .. Size - 1);

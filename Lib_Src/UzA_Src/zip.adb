@@ -458,7 +458,8 @@ package body Zip is
                           header.comment_length )));
         -- Now the whole i_th central directory entry is behind
         if Normalize(this_name,case_sensitive) =
-           Normalize(name,case_sensitive) then
+           Normalize(name,case_sensitive)
+        then
           -- Name found in central directory !
                file_index := Positive (Ada.Streams.Stream_IO.Count
                                        (1 + header.local_header_offset));
