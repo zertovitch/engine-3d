@@ -2,7 +2,7 @@ project E3D is
 
    type Build_Mode_Type is ("Debug", "Fast", "Small");
    Build_Mode : Build_Mode_Type := external ("Build_Mode", "Debug");
-   for Source_Dirs use (".", "..\lib_src\/**");
+   for Source_Dirs use (".", "..\lib_src", "..\lib_src\3DModels", "..\lib_src\DOS", "..\lib_src\Misc", "..\lib_src\UzA_Src");
    for Exec_Dir use ".";
    for Main use ("Demos.adb");
 
@@ -24,11 +24,11 @@ project E3D is
    package Compiler is
       case Build_Mode is
          when "Small" =>
-            for Default_Switches ("ada") use ("-gnat95", "-Os", "-s", "-gnatp", "-march=i386", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-gnatk8", "-Os", "-s", "-gnatp", "-march=i386");
          when "Fast" =>
-            for Default_Switches ("ada") use ("-gnat95", "-O2", "-gnatn", "-funroll-loops", "-fpeel-loops", "-ftracer", "-funswitch-loops", "-gnatp", "-fomit-frame-pointer", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-gnatk8", "-O2", "-gnatn", "-funroll-loops", "-fpeel-loops", "-ftracer", "-funswitch-loops", "-gnatp", "-fomit-frame-pointer");
          when "Debug" =>
-            for Default_Switches ("ada") use ("-gnat95", "-gnato", "-fstack-check", "-g", "-gnatwkmpz", "-gnatVa", "-gnatecdebug.pra", "-gnatyhiknp", "-gnatk8");
+            for Default_Switches ("ada") use ("-gnat95", "-gnatk8", "-gnato", "-fstack-check", "-g", "-gnatwkmpz", "-gnatVa", "-gnatecdebug.pra", "-gnatyhiknp");
       end case;
    end Compiler;
 
