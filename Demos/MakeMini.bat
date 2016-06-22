@@ -41,16 +41,16 @@ del %obj_dir%\demos.o
 
 @echo off
 
-echo * Recompile all of Zip-Ada as "small"
-gnatmake -f unzip -Pe3d.gpr -XBuild_Mode=Small
-rem BUG in DJGPP 4.3.2: the current directory is not set back
-cd..
+set gnat_opt=-i -aO%obj_dir% -gnatk8 -gnat95 -I. -I../lib_src -I../lib_src/dos -I../lib_src/3DModels -I../lib_src/Misc -I../lib_src/UzA_Src
+rem Options for small binaries
+set gnat_opt=%gnat_opt% -Os -s -gnatp -march=i386
+
+echo * Force recompile all of Zip-Ada unpacking stuff as "small"
+gnatmake -f unzip %gnat_opt%
 
 echo * Build demos as "small"
 del demos.
-gnatmake demos -Pe3d.gpr -XBuild_Mode=Small
-rem BUG in DJGPP 4.3.2: the current directory is not set back
-cd..
+gnatmake demos %gnat_opt%
 
 upx --ultra-brute demos.exe
 
